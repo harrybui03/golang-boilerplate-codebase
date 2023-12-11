@@ -1,22 +1,22 @@
 # Where are all the schema files located? globs are supported eg  src/**/*.graphql
 schema:
-  - schema/*.graphql
+  - internal/handler/gql/authenticated/schema/*.graphql
 
 # Where should the generated server code go?
 exec:
-  filename: graphql/generated.go
-  package: graphql
+  filename: internal/handler/gql/authenticated/generated.go
+  package: authenticated
 
 # Where should any generated models go?
 model:
-  filename: model/generated.go
+  filename: internal/model/generated.go
   package: model
 
 # Where should the resolver implementations go?
 resolver:
   layout: follow-schema
-  dir: resolver
-  package: resolver
+  dir: internal/handler/gql/authenticated
+  package: authenticated
 
 
 skip_validation: true
@@ -61,4 +61,4 @@ models:
       - github.com/99designs/gqlgen/graphql.Int32
   Node:
     model:
-      - golang-boilerplate/ent.Noder
+      - ./internal/repository/ent.Noder

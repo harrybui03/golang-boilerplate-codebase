@@ -1,12 +1,12 @@
 package api
 
 import (
-	"context"
-	"golang-boilerplate/config"
-	"golang-boilerplate/ent"
-	"golang-boilerplate/resolver"
 	"net/http"
 	"os"
+
+	"golang-boilerplate/config"
+	"golang-boilerplate/ent"
+	"golang-boilerplate/internal/handler/gql/authenticated"
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
@@ -14,7 +14,7 @@ import (
 	ut "github.com/go-playground/universal-translator"
 	"github.com/go-playground/validator/v10"
 	en_translations "github.com/go-playground/validator/v10/translations/en"
-	fiber "github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/adaptor"
 	"github.com/gofiber/fiber/v2/middleware/compress"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -42,10 +42,10 @@ func NewServerCmd(configs *config.Configurations, logger *zap.Logger) *cobra.Com
 			defer db.Close()
 
 			// Run the automation migration tool
-			if err := db.Schema.Create(context.Background()); err != nil {
-				logger.Error("Failed to creating db schema from the automation migration tool", zap.Error(err))
-				os.Exit(1)
-			}
+			// if err := db.Schema.Create(context.Background()); err != nil {
+			// 	logger.Error("Failed to creating db schema from the automation migration tool", zap.Error(err))
+			// 	os.Exit(1)
+			// }
 
 			// Create validator
 			validator := validator.New()
@@ -61,7 +61,7 @@ func NewServerCmd(configs *config.Configurations, logger *zap.Logger) *cobra.Com
 			}
 
 			// GraphQL schema resolver handler.
-			resolverHandler := handler.NewDefaultServer(resolver.NewExecutableSchema(db, validator, validationTranslator, logger))
+			resolverHandler := handler.NewDefaultServer(authenticated.NewSchema(db, validator, validationTranslator, logger))
 			// Handler for GraphQL Playground
 			playgroundHandler := playground.Handler("GraphQL Playground", "/graphql")
 

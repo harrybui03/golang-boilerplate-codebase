@@ -3,11 +3,12 @@ package main
 import (
 	"errors"
 	"fmt"
+	"os"
+	"strings"
+
 	"golang-boilerplate/cmd/api"
 	"golang-boilerplate/config"
 	"golang-boilerplate/internal/logger"
-	"os"
-	"strings"
 
 	"github.com/joho/godotenv"
 	"github.com/spf13/cobra"

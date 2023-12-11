@@ -2,10 +2,11 @@ package user
 
 import (
 	"context"
+	"strings"
+
 	"golang-boilerplate/ent"
 	"golang-boilerplate/ent/user"
-	"golang-boilerplate/model"
-	"strings"
+	"golang-boilerplate/internal/model"
 
 	"github.com/pkg/errors"
 )

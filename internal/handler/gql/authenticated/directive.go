@@ -1,8 +1,9 @@
-package resolver
+package authenticated
 
 import (
 	"context"
 	"fmt"
+
 	"golang-boilerplate/internal/util"
 
 	"github.com/99designs/gqlgen/graphql"

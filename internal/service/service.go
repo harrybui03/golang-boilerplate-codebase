@@ -2,8 +2,8 @@ package service
 
 import (
 	"golang-boilerplate/ent"
-	"golang-boilerplate/repository"
-	"golang-boilerplate/service/user"
+	"golang-boilerplate/internal/repository"
+	"golang-boilerplate/internal/service/user"
 
 	"go.uber.org/zap"
 )
@@ -13,7 +13,7 @@ type ServiceRegistry interface {
 	User() user.Service
 }
 
-// impl is the implementation of the service registry.
+// impl is the implementation of the  service registry.
 type impl struct {
 	user user.Service
 }

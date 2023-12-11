@@ -3,10 +3,11 @@ package user
 import (
 	"context"
 	"errors"
+
 	"golang-boilerplate/ent"
+	"golang-boilerplate/internal/model"
+	"golang-boilerplate/internal/repository"
 	"golang-boilerplate/internal/util"
-	"golang-boilerplate/model"
-	"golang-boilerplate/repository"
 
 	"go.uber.org/zap"
 )

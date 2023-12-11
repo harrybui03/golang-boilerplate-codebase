@@ -1,14 +1,11 @@
-package resolver
+package authenticated
 
 import (
 	"golang-boilerplate/ent"
-	"golang-boilerplate/service"
-
-	generated "golang-boilerplate/graphql"
+	"golang-boilerplate/internal/service"
 
 	"github.com/99designs/gqlgen/graphql"
 	ut "github.com/go-playground/universal-translator"
-
 	"github.com/go-playground/validator/v10"
 	"go.uber.org/zap"
 )
@@ -22,15 +19,13 @@ type Resolver struct {
 	logger  *zap.Logger
 }
 
-// NewExecutableSchema creates an ExecutableSchema instance.
-func NewExecutableSchema(client *ent.Client, validator *validator.Validate, validationTranslator ut.Translator, logger *zap.Logger) graphql.ExecutableSchema {
+// NewSchema creates an ExecutableSchema instance.
+func NewSchema(client *ent.Client, validator *validator.Validate, validationTranslator ut.Translator, logger *zap.Logger) graphql.ExecutableSchema {
 	service := service.New(client, logger)
 
-	config := generated.Config{
+	config := Config{
 		Resolvers: &Resolver{service: service, logger: logger},
 	}
-
 	config.Directives.Validation = validationResolver(validator, validationTranslator, logger)
-
-	return generated.NewExecutableSchema(config)
+	return NewExecutableSchema(config)
 }
